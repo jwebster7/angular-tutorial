@@ -1,0 +1,17 @@
+<div id="search-component">
+  <h4><label for="search-box">Hero Search</label></h4>
+
+  <!-- When any (input) is entered into the search box, 
+       the value is passed to the component search() method that adds it to a Subject that is used for searching for terms. 
+       This Subject acts as an Observable that emitts a steady stream of terms. -->
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <!-- '$' indicates 'heroes' is an observable, so we have to tell angular how to work with it in the template by using an async pipe. -->
+    <li *ngFor="let hero of heroes$ | async" >
+      <a routerLink="/detail/{{hero.id}}">
+        {{hero.name}}
+      </a>
+    </li>
+  </ul>
+</div>

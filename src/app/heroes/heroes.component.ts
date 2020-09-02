@@ -28,6 +28,20 @@ export class HeroesComponent implements OnInit {
     this.heroService.getHeroes().subscribe(heroList => {
       this.heroes = heroList;
     });
+  }
 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+  }
+
+  delete(hero: Hero): void {
+    if (!hero) { return; }
+    this.heroes = this.heroes.filter(h => h !== hero); // updates the local array to keep in step with the DB.
+    this.heroService.deleteHero(hero).subscribe();
   }
 }
